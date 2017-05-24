@@ -21,6 +21,7 @@ extension String {
     }
     
     // MARK: - MD5加密
+    // Don't forget to add #import <CommonCrypto/CommonCrypto.h> to the ObjC-Swift bridging header that Xcode creates.
     func md5() -> String {
         let str = self.cString(using: String.Encoding.utf8)
         let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
