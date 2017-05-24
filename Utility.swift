@@ -25,8 +25,8 @@ func RGBA(_ red:CGFloat, _ green:CGFloat, _ blue:CGFloat, _ alpha:CGFloat) -> UI
 
 // MARK: - AppVersion
 let infoDictionary: Dictionary = Bundle.main.infoDictionary!
-let appVersion = infoDictionary["CFBundleShortVersionString"]
-let appBuildVersion = infoDictionary["CFBundleVersion"]
+let appVersion = infoDictionary["CFBundleShortVersionString"] as! String
+let appBuildVersion = infoDictionary["CFBundleVersion"] as! String
 
 // MARK: - UIAlertView
 func alert(title: String, _ message: String) -> UIAlertController {
@@ -77,4 +77,23 @@ func delay(seconds: Double, completion: @escaping () -> ()) {
     DispatchQueue.main.asyncAfter(deadline: popTime) {
         completion()
     }
+}
+
+func intToUInt8(_ number: Int) -> [UInt8] {
+    var result = [UInt8]()
+    var _number = number
+    let mask_8Bits = 0xff
+    
+    // at: 0 -> insert at the beginning of the array
+    for _ in 0..<MemoryLayout<Int>.size {
+        result.insert(UInt8(_number & mask_8Bits), at: 0)
+        _number >>= 8 // shift 8 times from left to right
+    }
+    
+    return result
+}
+
+func getDocumentPath() -> String {
+    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+    return path
 }
