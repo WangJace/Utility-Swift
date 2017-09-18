@@ -79,6 +79,7 @@ func delay(seconds: Double, completion: @escaping () -> ()) {
     }
 }
 
+// MARK: - int转为UInt8
 func intToUInt8(_ number: Int) -> [UInt8] {
     var result = [UInt8]()
     var _number = number
@@ -93,7 +94,20 @@ func intToUInt8(_ number: Int) -> [UInt8] {
     return result
 }
 
+// MARK: - 获取应用的Document路径
 func getDocumentPath() -> String {
     let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
     return path
+}
+
+// MARK: - 使用颜色生成一张图
+func imageWithFrame(frame: CGRect, alpha: CGFloat) -> UIImage {
+    let rect = CGRect(x:0, y:0, width: frame.width, height: frame.height)
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()
+    context?.setFillColor(kMainColor.cgColor)
+    context?.fill(rect)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image!
 }
