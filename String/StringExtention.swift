@@ -43,4 +43,15 @@ extension String {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
+    
+    //根据开始位置和长度截取字符串
+    func subString(start:Int, length:Int = -1) -> String {
+        var len = length
+        if len == -1 {
+            len = characters.count - start
+        }
+        let st = characters.index(startIndex, offsetBy:start)
+        let en = characters.index(st, offsetBy:len)
+        return String(self[st ..< en])
+    }
 }
